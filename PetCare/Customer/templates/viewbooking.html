@@ -1,0 +1,89 @@
+{% extends 'Header.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0px;
+            background-color: #e2e2e6;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .status {
+            font-weight: bold;
+            text-align: center;
+        }
+        .pending {
+            color: orange;
+        }
+        .approved {
+            color: green;
+        }
+        .rejected {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Booking Details</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Pet Name</th>
+                <th>Shop Name</th>
+                <th>Rate Per Day (₹)</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Total Rate (₹)</th>
+                <th>Booked Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in boardings %}
+            <tr>
+                <td>{{ booking.pet.name }}</td>
+                <td>{{ booking.shop.shop_name }}</td>
+                <td>{{ booking.shop.rate }}</td>
+                <td>{{ booking.start_date|date:"Y-m-d" }}</td>
+                <td>{{ booking.end_date|date:"Y-m-d" }}</td>
+                <td>{{ booking.rate }}</td>
+                <td>{{ booking.booked_date|date:"Y-m-d H:i" }}</td>
+                <td class="status {% if booking.status == 'Pending' %}pending{% elif booking.status == 'Approved' %}approved{% else %}rejected{% endif %}">
+                    {{ booking.status }}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="8" style="text-align: center;">No bookings available</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+{% endblock %}

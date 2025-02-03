@@ -1,0 +1,15 @@
+{% extends 'shophomepage.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Add Stock for {{ product.product_name }}</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="additional_stock">Enter Additional Stock:</label>
+            <input type="number" name="additional_stock" id="additional_stock" class="form-control" placeholder="Enter stock quantity" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Stock</button>
+        <a href="{% url 'homepage' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

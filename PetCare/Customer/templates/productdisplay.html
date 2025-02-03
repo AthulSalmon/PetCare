@@ -1,0 +1,70 @@
+{% extends 'Header.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Display</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%; /* Ensures all cards are of equal height */
+        }
+        .card-img-top {
+            height: 200px;
+            object-fit: cover; /* Ensures the image scales properly without distortion */
+        }
+        .card-body {
+            flex-grow: 1; /* Ensures the content in the card body stretches to fill space */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Products</h2>
+        <div class="row">
+            {% for product in products %}
+            <div class="col-md-4 d-flex align-items-stretch">
+                <div class="card mb-4">
+                    <!-- Product Image -->
+                    {% if product.product_photo %}
+                    <img src="{{ product.product_photo.url }}" class="card-img-top" alt="{{ product.product_name }}">
+                    {% else %}
+                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="No Image Available">
+                    {% endif %}
+                    
+                    <!-- Product Details -->
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.product_name }}</h5>
+                        <p class="card-text">{{ product.product_details }}</p>
+                        <p class="card-text"><strong>Rate:</strong> ₹{{ product.product_rate }}</p>
+                        <p class="card-text"><strong>Shop:</strong> {{ product.shop.shop_name }}</p>
+
+                        <!-- Stock Status -->
+                        {% if product.stock == 0 %}
+                        <p class="text-danger"><strong>Status:</strong> Out of Stock</p>
+                        <a href="#" class="btn btn-secondary disabled" tabindex="-1" aria-disabled="true">Order Now</a>
+                        {% elif product.stock < 10 %}
+                        <p class="text-warning"><strong>Status:</strong> Few Left</p>
+                        <a href="{% url 'order_now' product.id %}" class="btn btn-primary">Order Now</a>
+                        {% else %}
+                        <p class="text-success"><strong>Status:</strong> In Stock</p>
+                        <a href="{% url 'order_now' product.id %}" class="btn btn-primary">Order Now</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <p class="text-center">No products available at the moment.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

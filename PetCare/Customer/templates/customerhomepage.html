@@ -1,0 +1,57 @@
+{% extends 'Header.html' %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<!-- Welcome Section -->
+<div class="container">
+    <div class="welcome-section">
+        <h2>Welcome, {{ customer_name }}!</h2>
+        <p class="lead">Explore our wide range of products and manage your pets with ease!</p>
+    </div>
+
+    <!-- Feature Cards -->
+    <div class="row text-center mt-5">
+        <div class="col-md-4">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Manage Pets</h5>
+                    <p class="card-text">Add, update, or view all your pets in one place.</p>
+                    <a href="{% url 'pet_list' %}" class="btn btn-primary">Your Pets</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h5 class="card-title">View Products</h5>
+                    <p class="card-text">Browse and shop for pet-related products with ease.</p>
+                    <a href="{% url 'product_display' %}" class="btn btn-primary">Shop Now</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Track Orders</h5>
+                    <p class="card-text">View your order history and current bookings.</p>
+                    <a href="{% url 'customer_order_details' %}" class="btn btn-primary">View Orders</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional Services Section -->
+    <div class="mt-5 text-center">
+        <h3>Our Services</h3>
+        <p>We provide a range of services for you and your pets:</p>
+        <div class="btn-group d-flex flex-wrap justify-content-center">
+            <a href="{% url 'add_pet' %}" class="btn btn-secondary">Add a New Pet</a>
+            <a href="{% url 'viewshop' %}" class="btn btn-secondary">View Shops</a>
+            <a href="{% url 'boarding_list' %}" class="btn btn-secondary">Booking Details</a>
+        </div>
+    </div>
+</div>
+
+</html>
+{% endblock %}

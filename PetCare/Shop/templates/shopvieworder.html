@@ -1,0 +1,76 @@
+{% extends 'shophomepage.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Order</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h3 class="text-center">View Order</h3>
+        <table class="table table-bordered mt-3">
+            <thead>
+                <tr>
+                    <th>Sl No</th>
+                    <th>Product Name</th>
+                    <th>Rate</th>
+                    <th>No. of Products</th>
+                    <th>Date of Order</th>
+                    <th>Photo</th>
+                    <th>Shop</th>
+                    <th>Payment Method</th>
+                    <th>Payment Status</th>
+                    <th>Status</th>
+                    <th>Change Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in order %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ order.products.product_name }}</td>
+                    <td>₹{{ order.total_price }}</td>
+                    <td>{{ order.no_product }}</td>
+                    <td>{{ order.order_date }}</td>
+                    <td>
+                        <img src="{{ order.products.product_photo.url }}" alt="Product Photo" width="80" height="80">
+                    </td>
+                    <td>{{ order.products.shop.shop_name }}</td>
+                    <td>{{ order.payment_method }}</td>
+                    <td>{{ order.payment_status }}</td>
+                    <td>{{ order.status }}</td>
+
+                    <!-- Only show the change status form if the order is not delivered -->
+                    {% if order.status != "Delivered" %}
+                    <td>
+                        <form action="{% url 'change_status' order.id %}" method="post">
+                            {% csrf_token %}
+                            <select name="status" class="form-select form-select-sm" onchange="this.form.submit()">
+                                <option value="Pending" {% if order.status == "Pending" %}selected{% endif %}>Pending</option>
+                                <option value="Packed" {% if order.status == "Packed" %}selected{% endif %}>Packed</option>
+                                <option value="Shipped" {% if order.status == "Shipped" %}selected{% endif %}>Shipped</option>
+                                <option value="Delivered" {% if order.status == "Delivered" %}selected{% endif %}>Delivered</option>
+                            </select>
+                        </form>
+                    </td>
+                    {% else %}
+                    <td>Delivered</td>
+                    {% endif %}
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="11" class="text-center">No orders found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Optional Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+{% endblock %}

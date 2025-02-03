@@ -1,0 +1,115 @@
+{% extends 'ServiceHomepage.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Booking Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0px;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .status {
+            font-weight: bold;
+            text-align: center;
+        }
+        .pending {
+            color: orange;
+        }
+        .approved {
+            color: green;
+        }
+        .rejected {
+            color: red;
+        }
+        form {
+            display: inline;
+        }
+        select {
+            padding: 5px;
+        }
+        button {
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>All Booking Details for Your Shop</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Pet Name</th>
+                <th>Rate Per Day (₹)</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Total Rate (₹)</th>
+                <th>Booked Date</th>
+                <th>Status</th>
+                <th>Update Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.pet.name }}</td>
+                <td>{{ booking.shop.rate }}</td>
+                <td>{{ booking.start_date|date:"Y-m-d" }}</td>
+                <td>{{ booking.end_date|date:"Y-m-d" }}</td>
+                <td>{{ booking.rate }}</td>
+                <td>{{ booking.booked_date|date:"Y-m-d H:i" }}</td>
+                <td class="status {% if booking.status == 'Pending' %}pending{% elif booking.status == 'Approved' %}approved{% else %}rejected{% endif %}">
+                    {{ booking.status }}
+                </td>
+                <td>
+                    <form action="{% url 'update_booking_status' booking.id %}" method="post">
+                        {% csrf_token %}
+                        <select name="status">
+                            <option value="Pending" {% if booking.status == 'Pending' %}selected{% endif %}>Pending</option>
+                            <option value="Approved" {% if booking.status == 'Approved' %}selected{% endif %}>Approved</option>
+                            <option value="Rejected" {% if booking.status == 'Rejected' %}selected{% endif %}>Rejected</option>
+                        </select>
+                        <button type="submit">Update</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="8" style="text-align: center;">No bookings available for your shop</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Your pet care, grooming, and adoption solution.">
+    <meta name="keywords" content="pet, care, grooming, adoption, services">
+    <meta name="author" content="Athul Salmon">
+    <title>Pet Care | Home</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Root Variables */
+        :root {
+            --primary-color: #0066cc; /* Light Blue */
+            --secondary-color: #004b8d; /* Darker Blue */
+            --hover-color: #003366; /* Even Darker Blue */
+            --light-bg: #f7f7f7; /* Light Gray */
+            --dark-bg: #333; /* Dark Text Color */
+            --accent-color: #ffffff; /* White Text */
+            --transition-speed: 0.3s;
+        }
+
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark-bg);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensures the page takes full height */
+        }
+
+        /* Header Section */
+        header {
+            background: url('https://via.placeholder.com/1920x800?text=Welcome+to+Pet+Care') no-repeat center center/cover;
+            height: 100vh;
+            color: #000000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 1rem;
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        header p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        header a {
+            background-color: var(--primary-color);
+            color: var(--accent-color);
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color var(--transition-speed);
+        }
+
+        header a:hover {
+            background-color: #000000;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: #000000;
+            display: flex;
+            justify-content: center;
+            padding: 1rem;
+            width: 100%;
+        }
+
+        nav a {
+            color: var(--accent-color);
+            text-decoration: none;
+            margin: 0 1.5rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: color var(--transition-speed);
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Main content area */
+        main {
+            flex: 1; /* This makes the main content take up the available space */
+            padding: 4rem 2rem;
+        }
+
+        /* Service Section */
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .service-card {
+            background-color: var(--accent-color);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+        }
+
+        .service-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-bg);
+        }
+
+        .service-card p {
+            font-size: 1rem;
+            color: var(--dark-bg);
+        }
+
+        /* Testimonial Section */
+        .testimonials {
+            background-color: var(--light-bg);
+            padding: 3rem 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 4rem;
+        }
+
+        .testimonials h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .testimonial-carousel {
+            display: flex;
+            overflow: hidden;
+            justify-content: center;
+            position: relative;
+        }
+
+        .testimonial-item {
+            flex: 0 0 80%;
+            padding: 2rem;
+            text-align: center;
+            background-color: var(--accent-color);
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-right: 2rem;
+            opacity: 0;
+            transition: opacity var(--transition-speed);
+        }
+
+        .testimonial-item.active {
+            opacity: 1;
+        }
+
+        .testimonial-item p {
+            font-size: 1.2rem;
+            color: var(--dark-bg);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #000000;
+            color: var(--accent-color);
+            padding: 3rem 1rem;
+            text-align: center;
+            width: 100%;
+        }
+
+        footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            margin: 0 1rem;
+            font-size: 1.2rem;
+            transition: color var(--transition-speed);
+        }
+
+        footer a:hover {
+            color: var(--hover-color);
+        }
+
+        .social-icons {
+            margin-top: 2rem;
+        }
+
+        .social-icons a {
+            font-size: 1.5rem;
+            margin: 0 1rem;
+            transition: color var(--transition-speed);
+        }
+
+        .social-icons a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Footer Subscription */
+        .footer-subscription {
+            margin-top: 2rem;
+            background-color: #0d5496;
+            padding: 1.5rem;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .footer-subscription input {
+            padding: 0.8rem;
+            width: 70%;
+            border: none;
+            border-radius: 8px;
+            margin-right: 1rem;
+            font-size: 1rem;
+        }
+
+        .footer-subscription button {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            background-color: #e91111;
+            color: var(--accent-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .footer-subscription button:hover {
+            background-color: #000000;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="">Home</a>
+        <a href="#about">About</a>
+        <a href="{% url 'register_customer'  %}">Register</a>
+        <a href="{% url 'register_shop'  %}">Shop Register</a>
+        <a href="{% url 'Login'  %}">Login</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+
+    <footer>
+        <p>&copy; 2025 Pet Care. All Rights Reserved.</p>
+        <div class="social-icons">
+            <a href="#">Facebook</a>
+            <a href="#">Twitter</a>
+            <a href="#">Instagram</a>
+        </div>
+        <div class="footer-subscription">
+            <input type="email" placeholder="Enter your email">
+            <button>Subscribe</button>
+        </div>
+    </footer>
+
+</body>
+
+</html>

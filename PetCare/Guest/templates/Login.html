@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        /* Root Variables */
+        :root {
+            --primary-bg-color: #2c3e50;
+            --secondary-bg-color: #34495e;
+            --highlight-color: #e74c3c;
+            --button-color: #3498db;
+            --button-hover-color: #2980b9;
+            --button-text-color: #fff;
+            --input-bg-color: #ecf0f1;
+            --input-border-color: #bdc3c7;
+            --text-color: #ecf0f1;
+            --text-light: #95a5a6;
+            --input-focus-border-color: #3498db;
+            --box-shadow-color: rgba(0, 0, 0, 0.15);
+        }
+
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #2c3e50, #34495e);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            background-color: var(--secondary-bg-color);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 6px 24px var(--box-shadow-color);
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+        }
+
+        h2 {
+            color: var(--highlight-color);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            font-size: 1rem;
+            color: var(--text-light);
+            text-align: left;
+            padding-left: 10px;
+        }
+
+        input {
+            padding: 12px;
+            font-size: 1rem;
+            background-color: var(--input-bg-color);
+            border: 1px solid var(--input-border-color);
+            border-radius: 5px;
+            outline: none;
+            transition: 0.3s ease;
+        }
+
+        input:focus {
+            border-color: var(--input-focus-border-color);
+        }
+
+        button {
+            padding: 12px;
+            font-size: 1.1rem;
+            background-color: var(--button-color);
+            color: var(--button-text-color);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        button:hover {
+            background-color: var(--button-hover-color);
+        }
+
+        .forgot-password {
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        .forgot-password a {
+            color: var(--highlight-color);
+            text-decoration: none;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        .register {
+            margin-top: 20px;
+            font-size: 1rem;
+        }
+
+        .register a {
+            color: var(--highlight-color);
+            text-decoration: none;
+        }
+
+        .register a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 500px) {
+            .login-container {
+                width: 90%;
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-container">
+        <h2>Welcome Back!</h2>
+        <form method="POST">
+            {% csrf_token %}
+            
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            
+            <button type="submit">Login</button>
+        </form>
+
+        <div class="forgot-password">
+            <a href="#">Forgot Password?</a>
+        </div>
+
+        <div class="register">
+            <a href="{% url 'register_customer' %}">Don't have an account? Register</a>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
